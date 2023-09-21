@@ -18,30 +18,37 @@ library(moderndive)
 ```
 
 ```{r problem1}
+#Load the dataset
 weather_data=get("early_january_weather")
-all_variable<-get_all_vars(weather_data)
-print(all_variable)
-weather_data_row<-nrow(weather_data)
-weather_data_col<-ncol(weather_data)
-print(weather_data_row)
-print(weather_data_col)
+```
+
+Discription:
+This data set including some improtant variables for Newark Liberty International Airport such as date of the weathering days, the temperature, some important information regarding the wind like wind speed and pressure. Values like wind_speed and wind_gust(though some parts are missing) can have some influence for the planes to take off. This dataset has `r nrow(early_january_weather)` rows and `r ncol(early_january_weather)` columns in total. The mean temperature for January in Newark Liberty International Airport is `r mean(early_january_weather$temp)`.
+
+
+
+```{r plot the graph and save}
 timehour_temp_scatterplot<-ggplot(data=weather_data,aes(x=time_hour,y=temp,color=humid))+geom_point()
 print(timehour_temp_scatterplot)
 ggsave("scatterplot.pdf",plot = timehour_temp_scatterplot)
 ```
 
+For this graph, we can see that the average temperature of EWR is generally raising since the beginning of January, and for the color bars, the humid level is usually high during daytime, since as the temp drop it's usually during nighttime.
+
+
 #Problem 2
 ```{r problem2}
 set.seed(123)
-df<-data_frame(normal_sample=rnorm(10),logical_vector=normal_sample>0, character_vector = c("1","2","3","4","5","6","7","8","9","10"),factor_vector = factor(sample(1:3,10,replace=TRUE)))
+df<-data_frame(normal_sample=rnorm(10),logical_vector=normal_sample>0, character_vector =c("1","2","3","4","5","6","7","8","9","10"),factor_vector =factor(c("tiny","medium","huge","tiny","medium","huge","tiny","medium","huge","tiny")))
+```
 
+```{r results='hide'}
 library(tidyverse)
-
 mean_normal_sample <- mean(pull(df, normal_sample))
 mean_logical_vector <- mean(pull(df, logical_vector), na.rm = TRUE)
 mean_character_vector <- mean(as.numeric(pull(df,character_vector)),na.rm = TRUE)
 mean_factor_vector <- mean(as.numeric(pull(df,factor_vector)),na.rm = TRUE)
 c(mean_normal_sample, mean_logical_vector, mean_character_vector, mean_factor_vector)
-
 ```
 
+Without the as.mumeric function, the normal mean() functuon is unable to give the results, since some of the information provided for the df dataframe is not numerical thus couldnt return normal numeric results. However, as we use as.numeric function, elements like vectors and charaters could be easily converted to numbers and get the means out.
