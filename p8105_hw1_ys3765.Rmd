@@ -39,7 +39,7 @@ For this graph, we can see that the average temperature of EWR is generally rais
 #Problem 2
 ```{r problem2}
 set.seed(123)
-df<-data_frame(normal_sample=rnorm(10),logical_vector=normal_sample>0, character_vector =c("1","2","3","4","5","6","7","8","9","10"),factor_vector =factor(c("tiny","medium","huge","tiny","medium","huge","tiny","medium","huge","tiny")))
+df<-tibble(normal_sample=rnorm(10),logical_vector=normal_sample>0, character_vector =c("1","2","3","4","5","6","7","8","9","10"),factor_vector =factor(c("tiny","medium","huge","tiny","medium","huge","tiny","medium","huge","tiny")))
 ```
 
 ```{r results='hide'}
